@@ -12,5 +12,17 @@ ReactDOM.render(<App />, document.getElementById("root"));
 serviceWorker.unregister();
 
 // TODO:
-// - category edit
-// - product add
+// footer
+// product add
+// list products
+// remove product
+// update product
+// show shop with all products
+// show product
+// add to cart
+// show cart
+// checkout
+// enter shipping info
+// enter billing info
+// order
+// thank you page

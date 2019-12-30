@@ -4,7 +4,7 @@ import useCategory from "../../hooks/useCategory";
 import CategoriesList from "./CategoriesList";
 import AddCategoryForm from "./AddCategoryForm";
 
-const Category = () => {
+const CategoryPage = () => {
   const { categories, list, add, remove, update } = useCategory();
 
   return (
@@ -21,4 +21,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryPage;
