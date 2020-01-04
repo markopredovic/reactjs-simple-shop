@@ -1,6 +1,6 @@
 import React from "react";
 import ProductsList from "./ProductsList";
-import ProductsContext from "../../context/productsContext";
+import AppContext from "../../context/appContext";
 import useProduct from "../../hooks/useProduct";
 import AddProductForm from "./AddProductForm";
 
@@ -8,12 +8,10 @@ const ProductPage = () => {
   const { state, getList, add } = useProduct();
 
   return (
-    <ProductsContext.Provider
-      value={{ products: state.products, getList, add }}
-    >
+    <AppContext.Provider value={{ state, getList, add }}>
       <AddProductForm />
       <ProductsList />
-    </ProductsContext.Provider>
+    </AppContext.Provider>
   );
 };
 

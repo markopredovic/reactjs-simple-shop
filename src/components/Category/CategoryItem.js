@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import CategoryContext from "../../context/categoryContext";
+import AppContext from "../../context/appContext";
 import { FaTimesCircle, FaEdit } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -13,7 +13,7 @@ const CategoryItem = ({
   description,
   removeCategory
 }) => {
-  const context = useContext(CategoryContext);
+  const context = useContext(AppContext);
 
   const [showEditModal, setShowEditModal] = useState(false);
 

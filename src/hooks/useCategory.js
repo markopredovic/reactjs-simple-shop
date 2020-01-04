@@ -24,7 +24,6 @@ const useCategory = () => {
   const list = async () => {
     try {
       let categories = await api.getCategories();
-      console.log("ALL CATEGORIES", categories);
       categories = categories ? categories : [];
       dispatch({ type: GET_ALL_CATEGORIES, payload: categories });
     } catch (err) {

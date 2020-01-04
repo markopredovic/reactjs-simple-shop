@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import CategoryItem from "./CategoryItem";
-import CategoryContext from "../../context/categoryContext";
+import AppContext from "../../context/appContext";
 import Table from "react-bootstrap/Table";
 import MySpinner from "../UI/Layout/MySpinner";
 
 const CategoriesList = () => {
-  const context = useContext(CategoryContext);
+  const context = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   let categories = [];
 

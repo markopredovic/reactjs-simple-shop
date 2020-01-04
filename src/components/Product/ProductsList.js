@@ -1,19 +1,21 @@
 import React, { useContext, useEffect } from "react";
-import ProductsContext from "../../context/productsContext";
+import AppContext from "../../context/appContext";
 import ProductItem from "./ProductItem";
 import Table from "react-bootstrap/Table";
 
 const ProductsList = () => {
-  const context = useContext(ProductsContext);
+  const context = useContext(AppContext);
 
   useEffect(() => {
     // load product
     context.getList();
   }, []);
 
-  const products = context.products.map(product => (
-    <ProductItem key={product.id} {...product} />
-  ));
+  const products =
+    context.state &&
+    context.state.products.map(product => (
+      <ProductItem key={product.id} {...product} />
+    ));
 
   return (
     <div className="l-products-list">
@@ -21,6 +23,7 @@ const ProductsList = () => {
         <thead className="bg-primary text-white">
           <tr>
             <th>Name</th>
+            <th>Category</th>
             <th>Description</th>
             <th>Price</th>
             <th className="text-center">Edit</th>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import CategoryContext from "../../context/categoryContext";
+import AppContext from "../../context/appContext";
 import uuid from "uuid";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -7,7 +7,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Toast from "react-bootstrap/Toast";
 
 const AddCategoryForm = () => {
-  const context = useContext(CategoryContext);
+  const context = useContext(AppContext);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

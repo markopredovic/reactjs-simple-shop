@@ -1,13 +1,19 @@
 import React from "react";
+import { FaEdit, FaTimes } from "react-icons/fa";
 
-const ProductItem = ({ name, description, price }) => {
+const ProductItem = ({ name, categoryName, description, price }) => {
   return (
     <tr>
       <td>{name}</td>
+      <td>{categoryName}</td>
       <td>{description}</td>
       <td>{price}</td>
-      <td>Edit</td>
-      <td>Remove</td>
+      <td className="text-center text-warning">
+        <FaEdit />
+      </td>
+      <td className="text-center text-danger">
+        <FaTimes />
+      </td>
     </tr>
   );
 };

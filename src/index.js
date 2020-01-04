@@ -12,8 +12,9 @@ ReactDOM.render(<App />, document.getElementById("root"));
 serviceWorker.unregister();
 
 // TODO:
+// product add (category id)
+// add product image
 // footer
-// product add
 // list products
 // remove product
 // update product
@@ -26,3 +27,4 @@ serviceWorker.unregister();
 // enter billing info
 // order
 // thank you page
+// category page filter

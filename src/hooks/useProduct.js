@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import productApi from "../api/productApi";
+import categoryApi from "../api/categoryApi";
 import { useReducer } from "react";
 import productReducer from "../reducers/productReducer";
-import { PRODUCT_ADD, PRODUCTS_LIST } from "../types";
+import { PRODUCT_ADD, PRODUCTS_LIST, GET_ALL_CATEGORIES } from "../types";
 
 const useProduct = () => {
   const initialState = {
@@ -9,6 +11,10 @@ const useProduct = () => {
   };
 
   const [state, dispatch] = useReducer(productReducer, initialState);
+
+  useEffect(() => {
+    getCategoriesList();
+  }, []);
 
   const getList = async () => {
     const response = await productApi.getList();
@@ -21,7 +27,15 @@ const useProduct = () => {
       return product;
     });
 
+    console.log("REDUCER GET PRODUCTS LIST", productsList);
+
     dispatch({ type: PRODUCTS_LIST, payload: productsList });
+  };
+
+  const getCategoriesList = async () => {
+    const _categories = await categoryApi.getCategories();
+
+    dispatch({ type: GET_ALL_CATEGORIES, payload: _categories });
   };
 
   const add = async product => {
