@@ -19,7 +19,7 @@ const AddCategoryForm = () => {
 
   let data = { name, description };
 
-  const validate = () => {
+  const _validate = () => {
     let _errors = {};
 
     if (name.trim() === "") {
@@ -33,7 +33,7 @@ const AddCategoryForm = () => {
     e.preventDefault();
 
     try {
-      const _errors = validate(data);
+      const _errors = _validate(data);
 
       if (Object.keys(_errors).length === 0) {
         setAddLoading(true);

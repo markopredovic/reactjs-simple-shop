@@ -5,10 +5,10 @@ import useProduct from "../../hooks/useProduct";
 import AddProductForm from "./AddProductForm";
 
 const ProductPage = () => {
-  const { state, getList, add } = useProduct();
+  const { state, getList, add, remove } = useProduct();
 
   return (
-    <AppContext.Provider value={{ state, getList, add }}>
+    <AppContext.Provider value={{ state, getList, add, remove }}>
       <AddProductForm />
       <ProductsList />
     </AppContext.Provider>

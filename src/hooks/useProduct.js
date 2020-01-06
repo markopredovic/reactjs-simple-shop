@@ -3,7 +3,12 @@ import productApi from "../api/productApi";
 import categoryApi from "../api/categoryApi";
 import { useReducer } from "react";
 import productReducer from "../reducers/productReducer";
-import { PRODUCT_ADD, PRODUCTS_LIST, GET_ALL_CATEGORIES } from "../types";
+import {
+  PRODUCT_ADD,
+  PRODUCTS_LIST,
+  GET_ALL_CATEGORIES,
+  PRODUCT_REMOVE
+} from "../types";
 
 const useProduct = () => {
   const initialState = {
@@ -18,16 +23,18 @@ const useProduct = () => {
 
   const getList = async () => {
     const response = await productApi.getList();
+    let productsList = [];
 
-    let productsList = Object.keys(response.data).map(el => {
-      let product = {
-        ...response.data[el],
-        db_node_name: el
-      };
-      return product;
-    });
+    if (response.data) {
+      productsList = Object.keys(response.data).map(el => {
+        let product = {
+          ...response.data[el],
+          db_node_name: el
+        };
 
-    console.log("REDUCER GET PRODUCTS LIST", productsList);
+        return product;
+      });
+    }
 
     dispatch({ type: PRODUCTS_LIST, payload: productsList });
   };
@@ -49,10 +56,17 @@ const useProduct = () => {
     dispatch({ type: PRODUCT_ADD, payload: updateProduct });
   };
 
+  const remove = async db_node_name => {
+    const response = await productApi.remove(db_node_name);
+
+    dispatch({ type: PRODUCT_REMOVE, payload: db_node_name });
+  };
+
   return {
     state,
     getList,
-    add
+    add,
+    remove
   };
 };
 

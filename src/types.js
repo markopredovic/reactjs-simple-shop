@@ -5,3 +5,4 @@ export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 
 export const PRODUCT_ADD = "PRODUCT_ADD";
 export const PRODUCTS_LIST = "PRODUCTS_LIST";
+export const PRODUCT_REMOVE = "PRODUCT_REMOVE";

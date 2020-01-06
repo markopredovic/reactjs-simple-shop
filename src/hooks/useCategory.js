@@ -34,9 +34,7 @@ const useCategory = () => {
   const add = async category => {
     try {
       const firebaseItemName = await api.addCategory(category);
-      console.log("FIREBASE ITEM NAME", firebaseItemName);
       category.db_node_name = firebaseItemName.data.name;
-      console.log("ADD CATEGORY", category);
       dispatch({ type: ADD_CATEGORY, payload: category });
     } catch (err) {
       throw new Error("add category error");
@@ -44,7 +42,6 @@ const useCategory = () => {
   };
 
   const remove = async db_node_name => {
-    console.log(db_node_name);
     try {
       await api.removeCategory(db_node_name);
       dispatch({ type: REMOVE_CATEGORY, payload: db_node_name });

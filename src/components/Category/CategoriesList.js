@@ -20,8 +20,6 @@ const CategoriesList = () => {
     fetchList();
   }, []);
 
-  console.log("CAEGORIES LIST");
-
   const handleRemove = async db_node_name => {
     setLoading(true);
     await context.remove(db_node_name);

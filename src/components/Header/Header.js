@@ -1,10 +1,39 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 
 const Header = () => {
   return (
-    <header className="mb-4">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <header className="">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <div className="container">
+          <Navbar.Brand href="#home">
+            React js simple e-commerce shop
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="justify-content-end" style={{ width: "100%" }}>
+              <Nav.Link as="li">
+                <NavLink to="/" exact activeClassName="active">
+                  Home
+                </NavLink>
+              </Nav.Link>
+              <Nav.Link as="li">
+                <NavLink to="/categories" exact activeClassName="active">
+                  Categories
+                </NavLink>
+              </Nav.Link>
+              <Nav.Link as="li">
+                <NavLink to="/products" exact activeClassName="active">
+                  Products
+                </NavLink>
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </div>
+      </Navbar>
+      {/* <nav className="navbar navbar-dark bg-dark">
         <div className="container">
           <h1 className="navbar-brand" href="#">
             Simple e-commerce shop
@@ -55,7 +84,7 @@ const Header = () => {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
     </header>
   );
 };
