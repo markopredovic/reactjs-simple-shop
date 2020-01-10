@@ -7,7 +7,8 @@ import {
   PRODUCT_ADD,
   PRODUCTS_LIST,
   GET_ALL_CATEGORIES,
-  PRODUCT_REMOVE
+  PRODUCT_REMOVE,
+  PRODUCT_UPDATE
 } from "../types";
 
 const useProduct = () => {
@@ -57,16 +58,23 @@ const useProduct = () => {
   };
 
   const remove = async db_node_name => {
-    const response = await productApi.remove(db_node_name);
+    await productApi.remove(db_node_name);
 
     dispatch({ type: PRODUCT_REMOVE, payload: db_node_name });
+  };
+
+  const update = async updatedProduct => {
+    await productApi.update(updatedProduct);
+
+    dispatch({ type: PRODUCT_UPDATE, payload: updatedProduct });
   };
 
   return {
     state,
     getList,
     add,
-    remove
+    remove,
+    update
   };
 };
 

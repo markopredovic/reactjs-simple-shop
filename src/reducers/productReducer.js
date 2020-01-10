@@ -2,7 +2,8 @@ import {
   PRODUCT_ADD,
   PRODUCTS_LIST,
   GET_ALL_CATEGORIES,
-  PRODUCT_REMOVE
+  PRODUCT_REMOVE,
+  PRODUCT_UPDATE
 } from "../types";
 
 const productReducer = (state, action) => {
@@ -15,6 +16,8 @@ const productReducer = (state, action) => {
       return addProduct(state, action.payload);
     case PRODUCT_REMOVE:
       return removeProduct(state, action.payload);
+    case PRODUCT_UPDATE:
+      return updateProduct(state, action.payload);
     default:
       return state;
   }
@@ -52,6 +55,19 @@ const removeProduct = (state, db_node_name) => {
   const updatedProducts = state.products.filter(
     product => product.db_node_name !== db_node_name
   );
+
+  return {
+    ...state,
+    products: updatedProducts
+  };
+};
+
+const updateProduct = (state, updatedProduct) => {
+  const updatedProducts = state.products.map(product => {
+    if (product.id === updatedProduct.id) {
+      return updatedProduct;
+    } else return product;
+  });
 
   return {
     ...state,

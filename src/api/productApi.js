@@ -9,7 +9,12 @@ export default {
     return axios.get(`${BASE_URL}/products.json`);
   },
   remove: db_node_name => {
-    console.log("REMOVE PRODUCT", db_node_name);
     return axios.delete(`${BASE_URL}/products/${db_node_name}.json`);
+  },
+  update: product => {
+    return axios.put(
+      `${BASE_URL}/products/${product.db_node_name}.json`,
+      product
+    );
   }
 };

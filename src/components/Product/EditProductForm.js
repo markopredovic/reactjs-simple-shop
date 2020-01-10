@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../context/appContext";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -6,11 +6,12 @@ import Spinner from "react-bootstrap/Spinner";
 import uuid from "uuid";
 import { storage } from "../../firebase";
 import Toast from "react-bootstrap/Toast";
+import { FaTimes } from "react-icons/fa";
 
-const AddProductForm = () => {
+const EditProductForm = ({ showEditModal, product }) => {
   const context = useContext(AppContext);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(showEditModal);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -21,19 +22,24 @@ const AddProductForm = () => {
   const [errors, setErrors] = useState({});
   const [addLoading, setAddLoading] = useState(false);
   const [showToastMessage, setShowToastMessage] = useState(false);
+  const [showImageUpload, setShowImageUpload] = useState(false);
+
+  useEffect(() => {
+    setShow(showEditModal);
+  }, [context]);
+
+  useEffect(() => {
+    setName(product ? product.name : "");
+    setDescription(product ? product.description : "");
+    setCategoryId(product ? product.categoryId : null);
+    setCategoryName(product ? product.categoryName : "");
+    setPrice(product ? product.price : 0);
+    setProductImageUrl(product ? product.productImageUrl : null);
+  }, [product]);
 
   const showModal = () => setShow(true);
   const handleClose = () => {
-    _resetForm();
     setShow(false);
-  };
-
-  const _resetForm = () => {
-    setName("");
-    setCategoryId("");
-    setProductImageFile(null);
-    setPrice(0);
-    setDescription("");
     setShowToastMessage(false);
   };
 
@@ -82,8 +88,9 @@ const AddProductForm = () => {
                 .child(productImageFile.name)
                 .getDownloadURL()
                 .then(url => {
-                  const product = {
-                    id: uuid.v4(),
+                  const updateProduct = {
+                    id: product.id,
+                    db_node_name: product.db_node_name,
                     name,
                     productImageUrl: url,
                     categoryId,
@@ -92,16 +99,16 @@ const AddProductForm = () => {
                     price
                   };
 
-                  context.add(product);
-                  setProductImageFile(null);
+                  context.update(updateProduct);
                   setAddLoading(false);
                   setShowToastMessage(true);
                 });
             }
           );
         } else {
-          const product = {
-            id: uuid.v4(),
+          const updateProduct = {
+            id: product.id,
+            db_node_name: product.db_node_name,
             name,
             productImageUrl,
             categoryId,
@@ -110,7 +117,7 @@ const AddProductForm = () => {
             price
           };
 
-          await context.add(product);
+          await context.update(updateProduct);
           setAddLoading(false);
           setShowToastMessage(true);
         }
@@ -133,16 +140,18 @@ const AddProductForm = () => {
     setProductImageFile(_image);
   };
 
+  const handleShowImageUpload = () => {
+    setShowImageUpload(true);
+    setProductImageUrl("");
+  };
+
   const productCategories = context.state.categories;
 
   return (
-    <div className="l-add-product">
-      <div className="l-action d-flex justify-content-end mb-4">
-        <Button onClick={showModal}>Add Product</Button>
-      </div>
+    <div className="l-edit-product">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Product</Modal.Title>
+          <Modal.Title>Edit Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
@@ -152,20 +161,37 @@ const AddProductForm = () => {
                 type="text"
                 className="form-control"
                 name="product-name"
-                onInput={e => setName(e.target.value)}
+                value={name}
+                onChange={e => setName(e.target.value)}
               />
               {errors && errors.name && (
                 <small className="text-danger">{errors.name}</small>
               )}
             </div>
             <div className="form-group l-product-image">
-              <label>Product Image</label>
-              <input
-                type="file"
-                className="form-control-file"
-                name="product-image"
-                onChange={handleProductImage}
-              />
+              <label style={{ marginRight: "10px" }}>Product Image</label>
+              {product && product.productImageUrl && !showImageUpload && (
+                <>
+                  <img src={product.productImageUrl} width="50px" alt="" />
+                  <FaTimes
+                    style={{
+                      padding: "2px",
+                      fontSize: "20px",
+                      color: "red",
+                      cursor: "pointer"
+                    }}
+                    onClick={handleShowImageUpload}
+                  />
+                </>
+              )}
+              {((product && !product.productImageUrl) || showImageUpload) && (
+                <input
+                  type="file"
+                  className="form-control-file"
+                  name="product-image"
+                  onChange={handleProductImage}
+                />
+              )}
             </div>
             <div className="form-group">
               <label>Category</label>
@@ -195,18 +221,20 @@ const AddProductForm = () => {
                 type="text"
                 className="form-control"
                 name="product-price"
-                onInput={e => setPrice(parseInt(e.target.value))}
+                value={price}
+                onChange={e => setPrice(parseInt(e.target.value))}
               />
               {errors && errors.price && (
                 <small className="text-danger">{errors.price}</small>
               )}
             </div>
             <div className="form-group">
-              <label>description</label>
+              <label>Description</label>
               <textarea
                 className="form-control"
                 name="product-description"
                 rows="3"
+                value={description}
                 onChange={e => setDescription(e.target.value)}
               ></textarea>
             </div>
@@ -215,9 +243,7 @@ const AddProductForm = () => {
               onClose={() => setShowToastMessage(false)}
             >
               <Toast.Header className="bg-success">
-                <strong className="mr-auto text-white">
-                  New Product added!
-                </strong>
+                <strong className="mr-auto text-white">Product edited!</strong>
               </Toast.Header>
             </Toast>
             <div className="l-action">
@@ -231,7 +257,7 @@ const AddProductForm = () => {
                     aria-hidden="true"
                   />
                 )}
-                Add
+                Edit
               </Button>
             </div>
           </form>
@@ -246,4 +272,4 @@ const AddProductForm = () => {
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;
