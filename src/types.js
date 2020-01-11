@@ -7,3 +7,6 @@ export const PRODUCT_ADD = "PRODUCT_ADD";
 export const PRODUCTS_LIST = "PRODUCTS_LIST";
 export const PRODUCT_REMOVE = "PRODUCT_REMOVE";
 export const PRODUCT_UPDATE = "PRODUCT_UPDATE";
+
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";

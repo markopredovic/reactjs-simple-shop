@@ -58,7 +58,6 @@ const useCategory = () => {
       } else {
         throw new Error("Update category error");
       }
-      console.log("RESPONSE", response);
     } catch (err) {
       console.log(err);
     }

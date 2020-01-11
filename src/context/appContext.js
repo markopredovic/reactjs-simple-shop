@@ -3,6 +3,7 @@ import { createContext } from "react";
 const appContext = createContext({
   categories: [],
   products: [],
+  isAuthenticated: false,
   listCategories: () => {},
   addCategory: () => {},
   updateCategory: () => {},

@@ -28,7 +28,6 @@ const getAllCategories = (state, categoriesObj) => {
     ...categoriesObj[el],
     db_node_name: el
   }));
-  console.log("CATEGORIES", categories);
   return {
     ...state,
     categories: [...categories]

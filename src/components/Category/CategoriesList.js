@@ -10,7 +10,6 @@ const CategoriesList = () => {
   let categories = [];
 
   useEffect(() => {
-    console.log("CATEGORY LIST USE EFFECT []");
     const fetchList = async () => {
       setLoading(true);
       await context.list();
