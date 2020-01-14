@@ -4,7 +4,7 @@ import uuid from "uuid";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
-import Toast from "react-bootstrap/Toast";
+import Alert from "react-bootstrap/Alert";
 
 const AddCategoryForm = () => {
   const context = useContext(AppContext);
@@ -56,8 +56,13 @@ const AddCategoryForm = () => {
     }
   };
 
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  };
   const handleClose = () => {
+    if (context.showCategoryRemovedMessage) {
+      context.hideCategoryRemovedMessage();
+    }
     setShow(false);
     setShowAddCategory(false);
   };
@@ -72,6 +77,15 @@ const AddCategoryForm = () => {
           <Modal.Title>Add Category</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {showAddCategory && (
+            <Alert
+              variant="success"
+              onClose={() => setShowAddCategory(false)}
+              dismissible
+            >
+              <span>Category sucessfully Added!!!</span>
+            </Alert>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Category name</label>
@@ -92,21 +106,6 @@ const AddCategoryForm = () => {
                 onChange={e => setDescription(e.target.value)}
               ></textarea>
             </div>
-            <Toast
-              show={showAddCategory}
-              onClose={() => setShowAddCategory(false)}
-            >
-              <Toast.Header className="bg-success text-white">
-                <img
-                  src="holder.js/20x20?text=%20"
-                  className="rounded mr-2"
-                  alt=""
-                />
-                <strong className="mr-auto">
-                  Category {`"${name}"`} added!
-                </strong>
-              </Toast.Header>
-            </Toast>
             <div className="l-action">
               <Button type="submit" className="btn btn-primary">
                 {addLoading && (

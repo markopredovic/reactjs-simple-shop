@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import uuid from "uuid";
 import { storage } from "../../firebase";
-import Toast from "react-bootstrap/Toast";
+import Alert from "react-bootstrap/Alert";
 
 const AddProductForm = () => {
   const context = useContext(AppContext);
@@ -20,12 +20,13 @@ const AddProductForm = () => {
   const [productImageUrl, setProductImageUrl] = useState("");
   const [errors, setErrors] = useState({});
   const [addLoading, setAddLoading] = useState(false);
-  const [showToastMessage, setShowToastMessage] = useState(false);
+  const [showProductAddedMessage, setShowProductAddedMessage] = useState(false);
 
   const showModal = () => setShow(true);
   const handleClose = () => {
     _resetForm();
     setShow(false);
+    context.hideProductRemovedMessage();
   };
 
   const _resetForm = () => {
@@ -34,7 +35,8 @@ const AddProductForm = () => {
     setProductImageFile(null);
     setPrice(0);
     setDescription("");
-    setShowToastMessage(false);
+    setShowProductAddedMessage(false);
+    setErrors({});
   };
 
   const _validate = () => {
@@ -95,7 +97,7 @@ const AddProductForm = () => {
                   context.add(product);
                   setProductImageFile(null);
                   setAddLoading(false);
-                  setShowToastMessage(true);
+                  setShowProductAddedMessage(true);
                 });
             }
           );
@@ -112,11 +114,11 @@ const AddProductForm = () => {
 
           await context.add(product);
           setAddLoading(false);
-          setShowToastMessage(true);
+          setShowProductAddedMessage(true);
         }
       } else {
         setErrors(_errors);
-        setShowToastMessage(false);
+        setShowProductAddedMessage(false);
       }
     } catch (err) {
       console.log(err);
@@ -145,6 +147,9 @@ const AddProductForm = () => {
           <Modal.Title>Add Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {showProductAddedMessage && (
+            <Alert variant={`success`}>Product successfully added!</Alert>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Name</label>
@@ -210,16 +215,6 @@ const AddProductForm = () => {
                 onChange={e => setDescription(e.target.value)}
               ></textarea>
             </div>
-            <Toast
-              show={showToastMessage}
-              onClose={() => setShowToastMessage(false)}
-            >
-              <Toast.Header className="bg-success">
-                <strong className="mr-auto text-white">
-                  New Product added!
-                </strong>
-              </Toast.Header>
-            </Toast>
             <div className="l-action">
               <Button type="submit" className="btn btn-primary">
                 {addLoading && (

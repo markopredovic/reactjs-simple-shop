@@ -3,7 +3,8 @@ import {
   PRODUCTS_LIST,
   GET_ALL_CATEGORIES,
   PRODUCT_REMOVE,
-  PRODUCT_UPDATE
+  PRODUCT_UPDATE,
+  HIDE_MESSAGE
 } from "../types";
 
 const productReducer = (state, action) => {
@@ -18,6 +19,11 @@ const productReducer = (state, action) => {
       return removeProduct(state, action.payload);
     case PRODUCT_UPDATE:
       return updateProduct(state, action.payload);
+    case HIDE_MESSAGE:
+      return {
+        ...state,
+        showProductRemovedMessage: false
+      };
     default:
       return state;
   }
@@ -58,7 +64,8 @@ const removeProduct = (state, db_node_name) => {
 
   return {
     ...state,
-    products: updatedProducts
+    products: updatedProducts,
+    showProductRemovedMessage: true
   };
 };
 

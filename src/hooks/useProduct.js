@@ -8,12 +8,14 @@ import {
   PRODUCTS_LIST,
   GET_ALL_CATEGORIES,
   PRODUCT_REMOVE,
-  PRODUCT_UPDATE
+  PRODUCT_UPDATE,
+  HIDE_MESSAGE
 } from "../types";
 
 const useProduct = () => {
   const initialState = {
-    products: []
+    products: [],
+    showProductRemovedMessage: false
   };
 
   const [state, dispatch] = useReducer(productReducer, initialState);
@@ -69,8 +71,14 @@ const useProduct = () => {
     dispatch({ type: PRODUCT_UPDATE, payload: updatedProduct });
   };
 
+  const hideProductRemovedMessage = () => {
+    dispatch({ type: HIDE_MESSAGE });
+  };
+
   return {
     state,
+    showProductRemovedMessage: state.showProductRemovedMessage,
+    hideProductRemovedMessage,
     getList,
     add,
     remove,

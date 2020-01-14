@@ -5,14 +5,16 @@ import {
   ADD_CATEGORY,
   GET_ALL_CATEGORIES,
   REMOVE_CATEGORY,
-  UPDATE_CATEGORY
+  UPDATE_CATEGORY,
+  HIDE_MESSAGE
 } from "../types";
 import api from "../api/categoryApi";
 
 // export custom category hook
 const useCategory = () => {
   const initialState = {
-    categories: []
+    categories: [],
+    showCategoryRemovedMessage: false
   };
   const [state, dispatch] = useReducer(CategoryReducer, initialState);
 
@@ -63,8 +65,14 @@ const useCategory = () => {
     }
   };
 
+  const hideCategoryRemovedMessage = () => {
+    dispatch({ type: HIDE_MESSAGE });
+  };
+
   return {
     categories: state.categories,
+    showCategoryRemovedMessage: state.showCategoryRemovedMessage,
+    hideCategoryRemovedMessage,
     list,
     add,
     remove,

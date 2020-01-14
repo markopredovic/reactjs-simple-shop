@@ -29,6 +29,9 @@ const CategoryItem = ({
   }, [name, description]);
 
   const handleClose = () => {
+    if (context.showCategoryRemovedMessage) {
+      context.hideCategoryRemovedMessage();
+    }
     setShowEditModal(false);
   };
 

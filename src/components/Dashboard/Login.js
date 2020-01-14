@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../../context/appContext";
-import Toast from "react-bootstrap/Toast";
+import Alert from "react-bootstrap/Alert";
+import MySpinner from "../UI/Layout/MySpinner";
 
 const Login = () => {
   const [loginName, setLoginName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
 
   const context = useContext(AppContext);
 
@@ -16,7 +18,9 @@ const Login = () => {
       loginPassword
     };
 
+    setShowLoader(true);
     await context.login(credentials);
+    setShowLoader(false);
   };
 
   return (
@@ -56,15 +60,18 @@ const Login = () => {
           </button>
         </form>
       ) : (
-        <Toast show={true}>
-          <Toast.Header className="bg-success">
-            <strong className="mr-auto text-white">You are logged in!!!</strong>
-          </Toast.Header>
-          <Toast.Body className="bg-dark text-white">
-            Use navbar menu to explore application
-          </Toast.Body>
-        </Toast>
+        <Alert variant="success">
+          <Alert.Heading>You are successfully logged in!</Alert.Heading>
+          <p>
+            You are now allowed access to dashboard actions:{" "}
+            <strong>Add/Edit/Remove category</strong> ,also{" "}
+            <strong>Add/Edit/Remove product.</strong> <br />
+            Go to <strong>Dashboard dropdowm menu item</strong> to access these
+            functionalities.
+          </p>
+        </Alert>
       )}
+      {showLoader && <MySpinner />}
     </div>
   );
 };

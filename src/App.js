@@ -6,7 +6,6 @@ import CategoryPage from "./components/Category/CategoryPage";
 import Layout from "./components/UI/Layout";
 import Homepage from "./components/Homepage";
 import Login from "./components/Dashboard/Login";
-import Logout from "./components/Dashboard/Logout";
 import ProductPage from "./components/Product/ProductPage";
 import AppContext from "./context/appContext";
 import useAuthenticate from "./hooks/useAuthenticate";
@@ -14,12 +13,10 @@ import useAuthenticate from "./hooks/useAuthenticate";
 function App() {
   let { isAuthenticated, login, logout } = useAuthenticate();
 
-  isAuthenticated = !!window.localStorage.getItem("login");
+  isAuthenticated = !!window.sessionStorage.getItem("login");
 
   useEffect(() => {
-    return () => {
-      window.localStorage.removeItem("login");
-    };
+    return () => {};
   }, []);
 
   return (
@@ -29,7 +26,6 @@ function App() {
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/login" exact component={Login} />
-            <AuthenticatedRoute path="/logout" component={Logout} />
             <AuthenticatedRoute path="/categories" component={CategoryPage} />
             <AuthenticatedRoute path="/products" component={ProductPage} />
           </Switch>

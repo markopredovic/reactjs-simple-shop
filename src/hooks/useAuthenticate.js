@@ -10,24 +10,25 @@ const useAuthenticate = () => {
 
   const [state, dispatch] = useReducer(LoginReducer, initialState);
 
-  const _setLocalStorageLogin = () => {
-    window.localStorage.setItem("login", true);
+  const _setSessionStorageLogin = () => {
+    window.sessionStorage.setItem("login", true);
   };
 
-  const _removeLocalStorageLogin = () => {
-    window.localStorage.removeItem("login");
+  const _removeSessionStorageLogin = () => {
+    window.sessionStorage.removeItem("login");
   };
 
   const login = async credentials => {
     await loginApi.login(credentials);
 
-    _setLocalStorageLogin();
+    _setSessionStorageLogin();
 
     dispatch({ type: LOGIN });
   };
 
-  const logout = () => {
-    _removeLocalStorageLogin();
+  const logout = async () => {
+    await loginApi.logout();
+    _removeSessionStorageLogin();
 
     dispatch({ type: LOGOUT });
   };

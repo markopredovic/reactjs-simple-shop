@@ -1,12 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import AppContext from "../../context/appContext";
+import MySpinner from "../UI/Layout/MySpinner";
 
 const Header = () => {
   const context = useContext(AppContext);
+  const [showLoader, setShowLoader] = useState(false);
+
+  const handleLogout = async () => {
+    setShowLoader(true);
+    await context.logout();
+    setShowLoader(false);
+  };
 
   return (
     <header className="">
@@ -33,7 +41,9 @@ const Header = () => {
                   <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                 )}
                 {context.isAuthenticated && (
-                  <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <span onClick={handleLogout}>Logout</span>
+                  </NavDropdown.Item>
                 )}
                 {context.isAuthenticated && (
                   <NavDropdown.Item href="/categories">
@@ -48,6 +58,7 @@ const Header = () => {
           </Navbar.Collapse>
         </div>
       </Navbar>
+      {showLoader && <MySpinner />}
     </header>
   );
 };

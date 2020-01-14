@@ -3,9 +3,8 @@ import AppContext from "../../context/appContext";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
-import uuid from "uuid";
 import { storage } from "../../firebase";
-import Toast from "react-bootstrap/Toast";
+import Alert from "react-bootstrap/Alert";
 import { FaTimes } from "react-icons/fa";
 
 const EditProductForm = ({ showEditModal, product }) => {
@@ -21,12 +20,13 @@ const EditProductForm = ({ showEditModal, product }) => {
   const [productImageUrl, setProductImageUrl] = useState("");
   const [errors, setErrors] = useState({});
   const [addLoading, setAddLoading] = useState(false);
-  const [showToastMessage, setShowToastMessage] = useState(false);
+  const [showAlertMessage, setShowAlertMessage] = useState(false);
   const [showImageUpload, setShowImageUpload] = useState(false);
 
   useEffect(() => {
+    console.log("EDIT PRODUCT MODAL use effect");
     setShow(showEditModal);
-  }, [context]);
+  }, [showEditModal, product]);
 
   useEffect(() => {
     setName(product ? product.name : "");
@@ -37,10 +37,10 @@ const EditProductForm = ({ showEditModal, product }) => {
     setProductImageUrl(product ? product.productImageUrl : null);
   }, [product]);
 
-  const showModal = () => setShow(true);
   const handleClose = () => {
     setShow(false);
-    setShowToastMessage(false);
+    setShowAlertMessage(false);
+    context.hideProductRemovedMessage();
   };
 
   const _validate = () => {
@@ -101,7 +101,7 @@ const EditProductForm = ({ showEditModal, product }) => {
 
                   context.update(updateProduct);
                   setAddLoading(false);
-                  setShowToastMessage(true);
+                  setShowAlertMessage(true);
                 });
             }
           );
@@ -119,11 +119,11 @@ const EditProductForm = ({ showEditModal, product }) => {
 
           await context.update(updateProduct);
           setAddLoading(false);
-          setShowToastMessage(true);
+          setShowAlertMessage(true);
         }
       } else {
         setErrors(_errors);
-        setShowToastMessage(false);
+        setShowAlertMessage(false);
       }
     } catch (err) {
       console.log(err);
@@ -154,6 +154,7 @@ const EditProductForm = ({ showEditModal, product }) => {
           <Modal.Title>Edit Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {showAlertMessage && <Alert variant="warning">Product edited!</Alert>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Name</label>
@@ -198,7 +199,7 @@ const EditProductForm = ({ showEditModal, product }) => {
               <select
                 className="form-control"
                 name="product-category"
-                value={categoryId}
+                value={categoryId ? categoryId : ""}
                 onChange={handleCategoryChange}
               >
                 <option disabled value="">
@@ -238,14 +239,6 @@ const EditProductForm = ({ showEditModal, product }) => {
                 onChange={e => setDescription(e.target.value)}
               ></textarea>
             </div>
-            <Toast
-              show={showToastMessage}
-              onClose={() => setShowToastMessage(false)}
-            >
-              <Toast.Header className="bg-success">
-                <strong className="mr-auto text-white">Product edited!</strong>
-              </Toast.Header>
-            </Toast>
             <div className="l-action">
               <Button type="submit" className="btn btn-primary">
                 {addLoading && (

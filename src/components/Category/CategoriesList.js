@@ -4,7 +4,7 @@ import AppContext from "../../context/appContext";
 import Table from "react-bootstrap/Table";
 import MySpinner from "../UI/Layout/MySpinner";
 
-const CategoriesList = () => {
+const CategoriesList = ({ showRemoveMessage, removeRemoveMessage }) => {
   const context = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   let categories = [];

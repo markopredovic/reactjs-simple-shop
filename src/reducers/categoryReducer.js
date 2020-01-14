@@ -2,7 +2,8 @@ import {
   ADD_CATEGORY,
   GET_ALL_CATEGORIES,
   REMOVE_CATEGORY,
-  UPDATE_CATEGORY
+  UPDATE_CATEGORY,
+  HIDE_MESSAGE
 } from "../types";
 
 const categoryReducer = (state, action) => {
@@ -15,6 +16,11 @@ const categoryReducer = (state, action) => {
       return removeCategory(state, action.payload);
     case UPDATE_CATEGORY:
       return updateCategory(state, action.payload);
+    case HIDE_MESSAGE:
+      return {
+        ...state,
+        showCategoryRemovedMessage: false
+      };
     default:
       return state;
   }
@@ -48,6 +54,7 @@ const removeCategory = (state, db_node_name) => {
 
   return {
     ...state,
+    showCategoryRemovedMessage: true,
     categories: updatedCategories
   };
 };
