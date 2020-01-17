@@ -5,23 +5,19 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Toast from "react-bootstrap/Toast";
+import MySpinner from "../UI/Layout/MySpinner";
 
-const CategoryItem = ({
-  id,
-  db_node_name,
-  name,
-  description,
-  removeCategory
-}) => {
+const CategoryItem = ({ id, db_node_name, name, description }) => {
   const context = useContext(AppContext);
 
   const [showEditModal, setShowEditModal] = useState(false);
-
   const [cname, setName] = useState();
   const [cdescription, setDescription] = useState();
   const [error, setError] = useState();
   const [addLoading, setAddLoading] = useState(false);
   const [showToastMessage, setShowToastMessage] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+  const [couldCategoryBeRemoved, setCouldCategoryBeRemoved] = useState(true);
 
   useEffect(() => {
     setName(name);
@@ -77,6 +73,38 @@ const CategoryItem = ({
     }
   };
 
+  const handleRemove = async () => {
+    const _couldRemove = _validateRemove();
+
+    if (_couldRemove) {
+      setCouldCategoryBeRemoved(true);
+      setShowLoading(true);
+      await context.remove(db_node_name);
+      setShowLoading(false);
+    } else {
+      setCouldCategoryBeRemoved(false);
+    }
+  };
+
+  const _validateRemove = () => {
+    let _couldRemove = true;
+
+    const productsInCurrentCategory = context.products.filter(
+      product => product.categoryId === id
+    );
+
+    if (productsInCurrentCategory.length > 0) {
+      _couldRemove = false;
+      console.log('CATEGORY COULDN"T REMOVE!!!');
+    }
+
+    return _couldRemove;
+  };
+
+  const handleCloseModal = () => {
+    setCouldCategoryBeRemoved(true);
+  };
+
   return (
     <>
       <tr>
@@ -86,7 +114,7 @@ const CategoryItem = ({
           <FaEdit onClick={editCategory} className="text-warning" />
         </td>
         <td className="text-center h4">
-          <FaTimesCircle onClick={removeCategory} className="text-danger" />
+          <FaTimesCircle onClick={handleRemove} className="text-danger" />
         </td>
       </tr>
       <Modal show={showEditModal} onHide={handleClose}>
@@ -151,6 +179,27 @@ const CategoryItem = ({
           </Button>
         </Modal.Footer>
       </Modal>
+      {showLoading && <MySpinner />}
+      {!couldCategoryBeRemoved && (
+        <Modal show={true} onHide={handleCloseModal}>
+          <Modal.Header closeButton className="bg-danger text-white">
+            <Modal.Title>Category couldn't be removed</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <p>
+              There are existing products with this category. Remove all
+              products with this category before you delete category
+            </p>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </>
   );
 };

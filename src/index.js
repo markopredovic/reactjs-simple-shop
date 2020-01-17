@@ -12,9 +12,6 @@ ReactDOM.render(<App />, document.getElementById("root"));
 serviceWorker.unregister();
 
 // TODO:
-// footer
-// responsive navbar
-// update product
 // show shop with all products
 // show product
 // add to cart
@@ -25,4 +22,6 @@ serviceWorker.unregister();
 // order
 // thank you page
 // category page filter
-// login page
+// footer
+
+// remove category : check if exist product with current category

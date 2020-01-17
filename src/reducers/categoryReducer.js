@@ -3,7 +3,8 @@ import {
   GET_ALL_CATEGORIES,
   REMOVE_CATEGORY,
   UPDATE_CATEGORY,
-  HIDE_MESSAGE
+  HIDE_MESSAGE,
+  PRODUCTS_LIST
 } from "../types";
 
 const categoryReducer = (state, action) => {
@@ -21,6 +22,8 @@ const categoryReducer = (state, action) => {
         ...state,
         showCategoryRemovedMessage: false
       };
+    case PRODUCTS_LIST:
+      return getProductsList(state, action.payload);
     default:
       return state;
   }
@@ -37,6 +40,18 @@ const getAllCategories = (state, categoriesObj) => {
   return {
     ...state,
     categories: [...categories]
+  };
+};
+
+const getProductsList = (state, productsObj) => {
+  if (!productsObj) return [];
+  const products = Object.keys(productsObj).map(el => ({
+    ...productsObj[el],
+    db_node_name: el
+  }));
+  return {
+    ...state,
+    products: [...products]
   };
 };
 

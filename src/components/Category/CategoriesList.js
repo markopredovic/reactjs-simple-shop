@@ -19,12 +19,6 @@ const CategoriesList = ({ showRemoveMessage, removeRemoveMessage }) => {
     fetchList();
   }, []);
 
-  const handleRemove = async db_node_name => {
-    setLoading(true);
-    await context.remove(db_node_name);
-    setLoading(false);
-  };
-
   const handleEdit = category => {
     console.log("SHOW EDIT MODAL");
   };
@@ -35,7 +29,6 @@ const CategoriesList = ({ showRemoveMessage, removeRemoveMessage }) => {
           {...category}
           key={index}
           editCategory={() => handleEdit(category)}
-          removeCategory={() => handleRemove(category.db_node_name)}
         />
       ))
     : [];

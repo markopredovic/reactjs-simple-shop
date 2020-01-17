@@ -8,6 +8,7 @@ import Alert from "react-bootstrap/Alert";
 const CategoryPage = () => {
   const {
     categories,
+    products,
     showCategoryRemovedMessage,
     hideCategoryRemovedMessage,
     list,
@@ -22,6 +23,7 @@ const CategoryPage = () => {
         <AppContext.Provider
           value={{
             categories,
+            products,
             showCategoryRemovedMessage,
             hideCategoryRemovedMessage,
             list,

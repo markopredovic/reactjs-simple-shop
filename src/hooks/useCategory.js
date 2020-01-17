@@ -6,14 +6,17 @@ import {
   GET_ALL_CATEGORIES,
   REMOVE_CATEGORY,
   UPDATE_CATEGORY,
-  HIDE_MESSAGE
+  HIDE_MESSAGE,
+  PRODUCTS_LIST
 } from "../types";
 import api from "../api/categoryApi";
+import productApi from "../api/productApi";
 
 // export custom category hook
 const useCategory = () => {
   const initialState = {
     categories: [],
+    products: [],
     showCategoryRemovedMessage: false
   };
   const [state, dispatch] = useReducer(CategoryReducer, initialState);
@@ -21,6 +24,7 @@ const useCategory = () => {
   useEffect(() => {
     // getList
     // list();
+    getProductsList();
   }, []);
 
   const list = async () => {
@@ -30,6 +34,17 @@ const useCategory = () => {
       dispatch({ type: GET_ALL_CATEGORIES, payload: categories });
     } catch (err) {
       console.log("list error");
+    }
+  };
+
+  const getProductsList = async () => {
+    try {
+      let response = await productApi.getList();
+      const products = response ? response.data : [];
+      console.log("USE CATEGORY - getProductsList", products);
+      dispatch({ type: PRODUCTS_LIST, payload: products });
+    } catch (err) {
+      console.log("get products list error");
     }
   };
 
@@ -71,6 +86,7 @@ const useCategory = () => {
 
   return {
     categories: state.categories,
+    products: state.products,
     showCategoryRemovedMessage: state.showCategoryRemovedMessage,
     hideCategoryRemovedMessage,
     list,
