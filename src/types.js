@@ -11,3 +11,5 @@ export const PRODUCT_UPDATE = "PRODUCT_UPDATE";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const HIDE_MESSAGE = "HIDE_MESSAGE";
+
+export const COULD_REMOVE_CATEGORY = "COULD_REMOVE_CATEGORY";

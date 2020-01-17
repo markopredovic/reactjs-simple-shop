@@ -17,7 +17,6 @@ const CategoryItem = ({ id, db_node_name, name, description }) => {
   const [addLoading, setAddLoading] = useState(false);
   const [showToastMessage, setShowToastMessage] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [couldCategoryBeRemoved, setCouldCategoryBeRemoved] = useState(true);
 
   useEffect(() => {
     setName(name);
@@ -77,12 +76,12 @@ const CategoryItem = ({ id, db_node_name, name, description }) => {
     const _couldRemove = _validateRemove();
 
     if (_couldRemove) {
-      setCouldCategoryBeRemoved(true);
+      context.setCouldRemoveCategory(true);
       setShowLoading(true);
       await context.remove(db_node_name);
       setShowLoading(false);
     } else {
-      setCouldCategoryBeRemoved(false);
+      context.setCouldRemoveCategory(false);
     }
   };
 
@@ -99,10 +98,6 @@ const CategoryItem = ({ id, db_node_name, name, description }) => {
     }
 
     return _couldRemove;
-  };
-
-  const handleCloseModal = () => {
-    setCouldCategoryBeRemoved(true);
   };
 
   return (
@@ -180,26 +175,6 @@ const CategoryItem = ({ id, db_node_name, name, description }) => {
         </Modal.Footer>
       </Modal>
       {showLoading && <MySpinner />}
-      {!couldCategoryBeRemoved && (
-        <Modal show={true} onHide={handleCloseModal}>
-          <Modal.Header closeButton className="bg-danger text-white">
-            <Modal.Title>Category couldn't be removed</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <p>
-              There are existing products with this category. Remove all
-              products with this category before you delete category
-            </p>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
     </>
   );
 };

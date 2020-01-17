@@ -4,6 +4,10 @@ import useCategory from "../../hooks/useCategory";
 import CategoriesList from "./CategoriesList";
 import AddCategoryForm from "./AddCategoryForm";
 import Alert from "react-bootstrap/Alert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import ModalMessage from "../UI/ModalMessage";
+import CategoryRemoveMessage from "../Messages/CategoryRemoveMessage";
 
 const CategoryPage = () => {
   const {
@@ -11,6 +15,8 @@ const CategoryPage = () => {
     products,
     showCategoryRemovedMessage,
     hideCategoryRemovedMessage,
+    couldRemoveCategory,
+    setCouldRemoveCategory,
     list,
     add,
     remove,
@@ -26,6 +32,8 @@ const CategoryPage = () => {
             products,
             showCategoryRemovedMessage,
             hideCategoryRemovedMessage,
+            couldRemoveCategory,
+            setCouldRemoveCategory,
             list,
             add,
             remove,
@@ -33,9 +41,18 @@ const CategoryPage = () => {
           }}
         >
           {showCategoryRemovedMessage && (
-            <Alert variant="success" onClose={() => {}} dismissible>
-              <span>Category removed!</span>
+            <Alert variant="danger" onClose={() => {}} dismissible>
+              <CategoryRemoveMessage success={true} />
             </Alert>
+          )}
+          {!couldRemoveCategory && (
+            <ModalMessage
+              title="Remove Category"
+              type="danger"
+              closeModal={setCouldRemoveCategory}
+            >
+              <CategoryRemoveMessage success={false} />
+            </ModalMessage>
           )}
           <AddCategoryForm />
           <CategoriesList />

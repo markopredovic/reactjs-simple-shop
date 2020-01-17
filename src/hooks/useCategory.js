@@ -7,7 +7,8 @@ import {
   REMOVE_CATEGORY,
   UPDATE_CATEGORY,
   HIDE_MESSAGE,
-  PRODUCTS_LIST
+  PRODUCTS_LIST,
+  COULD_REMOVE_CATEGORY
 } from "../types";
 import api from "../api/categoryApi";
 import productApi from "../api/productApi";
@@ -17,7 +18,8 @@ const useCategory = () => {
   const initialState = {
     categories: [],
     products: [],
-    showCategoryRemovedMessage: false
+    showCategoryRemovedMessage: false,
+    couldRemoveCategory: true
   };
   const [state, dispatch] = useReducer(CategoryReducer, initialState);
 
@@ -84,11 +86,17 @@ const useCategory = () => {
     dispatch({ type: HIDE_MESSAGE });
   };
 
+  const setCouldRemoveCategory = couldBeRemoved => {
+    dispatch({ type: COULD_REMOVE_CATEGORY, payload: couldBeRemoved });
+  };
+
   return {
     categories: state.categories,
     products: state.products,
     showCategoryRemovedMessage: state.showCategoryRemovedMessage,
     hideCategoryRemovedMessage,
+    couldRemoveCategory: state.couldRemoveCategory,
+    setCouldRemoveCategory,
     list,
     add,
     remove,

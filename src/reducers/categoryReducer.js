@@ -4,7 +4,8 @@ import {
   REMOVE_CATEGORY,
   UPDATE_CATEGORY,
   HIDE_MESSAGE,
-  PRODUCTS_LIST
+  PRODUCTS_LIST,
+  COULD_REMOVE_CATEGORY
 } from "../types";
 
 const categoryReducer = (state, action) => {
@@ -24,6 +25,11 @@ const categoryReducer = (state, action) => {
       };
     case PRODUCTS_LIST:
       return getProductsList(state, action.payload);
+    case COULD_REMOVE_CATEGORY:
+      return {
+        ...state,
+        couldRemoveCategory: action.payload
+      };
     default:
       return state;
   }
