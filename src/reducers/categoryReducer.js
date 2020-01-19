@@ -5,7 +5,8 @@ import {
   UPDATE_CATEGORY,
   HIDE_MESSAGE,
   PRODUCTS_LIST,
-  COULD_REMOVE_CATEGORY
+  COULD_REMOVE_CATEGORY,
+  CURRENT_CATEGORY
 } from "../types";
 
 const categoryReducer = (state, action) => {
@@ -30,6 +31,8 @@ const categoryReducer = (state, action) => {
         ...state,
         couldRemoveCategory: action.payload
       };
+    case CURRENT_CATEGORY:
+      return setCurrentCategory(state, action.payload);
     default:
       return state;
   }
@@ -90,4 +93,20 @@ const updateCategory = (state, updatedCategory) => {
     ...state,
     categories: updatedCategoriesList
   };
+};
+
+const setCurrentCategory = (state, currentCategory) => {
+  if (currentCategory) {
+    return {
+      ...state,
+      isEditCategory: true,
+      currentCategory
+    };
+  } else {
+    return {
+      ...state,
+      isEditCategory: false,
+      currentCategory: null
+    };
+  }
 };

@@ -3,9 +3,8 @@ import AppContext from "../../context/appContext";
 import useCategory from "../../hooks/useCategory";
 import CategoriesList from "./CategoriesList";
 import AddCategoryForm from "./AddCategoryForm";
+import EditCategoryForm from "./EditCategoryForm";
 import Alert from "react-bootstrap/Alert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import ModalMessage from "../UI/ModalMessage";
 import CategoryRemoveMessage from "../Messages/CategoryRemoveMessage";
 
@@ -17,6 +16,9 @@ const CategoryPage = () => {
     hideCategoryRemovedMessage,
     couldRemoveCategory,
     setCouldRemoveCategory,
+    isEditCategory,
+    currentCategory,
+    setCurrentCategory,
     list,
     add,
     remove,
@@ -34,6 +36,9 @@ const CategoryPage = () => {
             hideCategoryRemovedMessage,
             couldRemoveCategory,
             setCouldRemoveCategory,
+            isEditCategory,
+            currentCategory,
+            setCurrentCategory,
             list,
             add,
             remove,
@@ -56,6 +61,9 @@ const CategoryPage = () => {
           )}
           <AddCategoryForm />
           <CategoriesList />
+          {isEditCategory && (
+            <EditCategoryForm currentCategory={currentCategory} />
+          )}
         </AppContext.Provider>
       </div>
     </div>
