@@ -2,8 +2,11 @@
 @import "./bootstrap-variables";
 @import "bootstrap/scss/bootstrap.scss";
 @import "./base";
+
 @import "./layout/spinner";
 @import "./layout/common";
 @import "./layout/header";
 @import "./layout/category";
+@import "./layout/product";
+
 @import "./modules/common";

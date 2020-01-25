@@ -1,0 +1,55 @@
+/* ---------------------------------
+    product:
+----------------------------------- */
+.l-shop-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .l-add-product {
+    width: 32%;
+    margin-right: 2%;
+    margin-bottom: 40px;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    border: 1px solid #ddd;
+  }
+}
+
+// modules:
+.m-add-product {
+  padding: 20px 0;
+  .l-img {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    &:before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+    img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+      display: block;
+      width: auto;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  .l-content {
+    .l-name {
+      margin-bottom: 10px;
+    }
+    .l-price {
+      margin-bottom: 10px;
+    }
+  }
+  .l-action {
+  }
+}

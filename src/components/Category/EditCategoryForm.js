@@ -1,60 +1,26 @@
-import React, { useContext, useState, useEffect } from "react";
-import AppContext from "../../context/appContext";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import useEditCategoryForm from "../../hooks/useEditCategoryForm";
 
 const EditCategoryForm = ({ currentCategory }) => {
-  const context = useContext(AppContext);
-  const [errors, setErrors] = useState({});
-  const [showEditLoader, setShowEditLoader] = useState(false);
-  const [isEdited, setIsEdited] = useState(false);
-
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    if (currentCategory) {
-      setName(currentCategory.name);
-      setDescription(currentCategory.description);
-    }
-  }, [currentCategory]);
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-
-    const _errors = _validate();
-
-    if (Object.keys(_errors).length === 0) {
-      setErrors({});
-      setIsEdited(false);
-      setShowEditLoader(true);
-
-      const editedCategory = {
-        id: currentCategory.id,
-        db_node_name: currentCategory.db_node_name,
-        name,
-        description
-      };
-
-      await context.update(editedCategory);
-      setIsEdited(true);
-      setShowEditLoader(false);
-    } else {
-      setErrors(_errors);
-    }
-  };
-
-  const _validate = () => {
-    let _errors = {};
-
-    return _errors;
-  };
-
-  const handleClose = () => {
-    context.setCurrentCategory(null);
-  };
+  const [
+    name,
+    setName,
+    description,
+    setDescription,
+    errors,
+    setErrors,
+    showEditLoader,
+    setShowEditLoader,
+    isEdited,
+    setIsEdited,
+    handleSubmit,
+    handleClose,
+    context
+  ] = useEditCategoryForm(currentCategory);
 
   return (
     <div className="l-edit-category">

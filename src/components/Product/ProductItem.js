@@ -34,7 +34,16 @@ const ProductItem = ({
       <tr>
         <td>{name}</td>
         <td>
-          <img src={productImageUrl} alt="" width="80px" />
+          {productImageUrl ? (
+            <img src={productImageUrl} alt="" width="80px" />
+          ) : (
+            <img
+              src={`https://placehold.it/150x80/?text=${encodeURIComponent(
+                "no image"
+              )}`}
+              alt=""
+            />
+          )}
         </td>
         <td>{categoryName}</td>
         <td>{description}</td>
