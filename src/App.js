@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CategoryPage from "./components/Category/CategoryPage";
 import Layout from "./components/UI/Layout";
 import Homepage from "./components/Homepage";
-import Login from "./components/Dashboard/Login";
 import ProductPage from "./components/Product/ProductPage";
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact component={Homepage} />
-          <Route path="/login" exact component={Login} />
           <Route path="/categories" component={CategoryPage} />
           <Route path="/products" component={ProductPage} />
         </Switch>

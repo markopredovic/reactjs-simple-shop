@@ -23,5 +23,3 @@ serviceWorker.unregister();
 // thank you page
 // category page filter
 // footer
-
-// remove category : check if exist product with current category
