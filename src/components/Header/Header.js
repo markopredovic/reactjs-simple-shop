@@ -18,11 +18,7 @@ const Header = () => {
             className="justify-content-between"
           >
             <Nav>
-              <Nav.Link as="li">
-                <NavLink to="/" exact activeClassName="active">
-                  Home
-                </NavLink>
-              </Nav.Link>
+              <Nav.Link href="/">Home</Nav.Link>
             </Nav>
             <Nav>
               <NavDropdown title="Dashboard" id="basic-nav-dropdown">
