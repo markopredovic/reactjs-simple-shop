@@ -7,31 +7,19 @@ import Layout from "./components/UI/Layout";
 import Homepage from "./components/Homepage";
 import Login from "./components/Dashboard/Login";
 import ProductPage from "./components/Product/ProductPage";
-import AppContext from "./context/appContext";
-import useAuthenticate from "./hooks/useAuthenticate";
 
 function App() {
-  let { isAuthenticated, login, logout } = useAuthenticate();
-
-  isAuthenticated = !!window.sessionStorage.getItem("login");
-
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   return (
-    <AppContext.Provider value={{ isAuthenticated, login, logout }}>
-      <Router>
-        <Layout>
-          <Switch>
-            <Route path="/" exact component={Homepage} />
-            <Route path="/login" exact component={Login} />
-            <AuthenticatedRoute path="/categories" component={CategoryPage} />
-            <AuthenticatedRoute path="/products" component={ProductPage} />
-          </Switch>
-        </Layout>
-      </Router>
-    </AppContext.Provider>
+    <Router>
+      <Layout>
+        <Switch>
+          <Route path="/" exact component={Homepage} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/categories" component={CategoryPage} />
+          <Route path="/products" component={ProductPage} />
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 

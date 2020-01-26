@@ -1,19 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../context/appContext";
 import { FaTimesCircle, FaEdit } from "react-icons/fa";
 import MySpinner from "../UI/Layout/MySpinner";
 
 const CategoryItem = ({ id, db_node_name, name, description }) => {
   const context = useContext(AppContext);
-
-  const [cname, setName] = useState();
-  const [cdescription, setDescription] = useState();
   const [showLoader, setShowLoader] = useState(false);
-
-  useEffect(() => {
-    setName(name);
-    setDescription(description);
-  }, [name, description]);
 
   const handleRemove = async () => {
     const _couldRemove = _validateRemove();
