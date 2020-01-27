@@ -8,15 +8,15 @@ import ProductPage from "./components/Product/ProductPage";
 
 function App() {
   return (
-    <Layout>
-      <Router>
+    <Router>
+      <Layout>
         <Switch>
           <Route path="/" exact component={Homepage} />
           <Route path="/dashboard/categories" component={CategoryPage} />
           <Route path="/dashboard/products" component={ProductPage} />
         </Switch>
-      </Router>
-    </Layout>
+      </Layout>
+    </Router>
   );
 }
 
