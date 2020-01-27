@@ -20,14 +20,13 @@ const Header = () => {
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
             </Nav>
-            <NavLink to="/dashboard/categories">Categories again</NavLink>
             <Nav>
               <NavDropdown title="Dashboard" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/dashboard/categories">
-                  Categories
+                <NavDropdown.Item as="li">
+                  <NavLink to="/dashboard/categories">Categories</NavLink>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/dashboard/products">
-                  Products
+                <NavDropdown.Item as="li">
+                  <NavLink to="/dashboard/products">Products</NavLink>
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
