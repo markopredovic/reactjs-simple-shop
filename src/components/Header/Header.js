@@ -22,10 +22,12 @@ const Header = () => {
             </Nav>
             <Nav>
               <NavDropdown title="Dashboard" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/categories">
+                <NavDropdown.Item href="/dashboard/categories">
                   Categories
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/products">Products</NavDropdown.Item>
+                <NavDropdown.Item href="/dashboard/products">
+                  Products
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
