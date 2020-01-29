@@ -5,18 +5,40 @@ import CategoryPage from "./components/Category/CategoryPage";
 import Layout from "./components/UI/Layout";
 import Homepage from "./components/Homepage";
 import ProductPage from "./components/Product/ProductPage";
+import AppContext from "./context/appContext";
+import useShop from "./hooks/useShop";
 
 function App() {
+  const {
+    products,
+    getProductsList,
+    cart,
+    getCart,
+    addToCart,
+    deleteMinicartItem
+  } = useShop();
+
   return (
-    <Router>
-      <Layout>
-        <Switch>
-          <Route path="/" exact component={Homepage} />
-          <Route path="/dashboard/categories" component={CategoryPage} />
-          <Route path="/dashboard/products" component={ProductPage} />
-        </Switch>
-      </Layout>
-    </Router>
+    <AppContext.Provider
+      value={{
+        products,
+        getProductsList,
+        cart,
+        getCart,
+        addToCart,
+        deleteMinicartItem
+      }}
+    >
+      <Router>
+        <Layout>
+          <Switch>
+            <Route path="/" exact component={Homepage} />
+            <Route path="/dashboard/categories" component={CategoryPage} />
+            <Route path="/dashboard/products" component={ProductPage} />
+          </Switch>
+        </Layout>
+      </Router>
+    </AppContext.Provider>
   );
 }
 

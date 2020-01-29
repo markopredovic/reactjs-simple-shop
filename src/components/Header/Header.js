@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Dropdown from "react-bootstrap/Dropdown";
+import Minicart from "../Minicart";
+import { FaCaretDown, FaCartPlus } from "react-icons/fa";
 
 const Header = () => {
   return (
@@ -29,6 +32,15 @@ const Header = () => {
                   <NavLink to="/dashboard/products">Products</NavLink>
                 </NavDropdown.Item>
               </NavDropdown>
+              <Dropdown>
+                <Dropdown.Toggle variant="info" id="dropdown-basic">
+                  <FaCartPlus />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Minicart />
+                </Dropdown.Menu>
+              </Dropdown>
             </Nav>
           </Navbar.Collapse>
         </div>

@@ -19,11 +19,15 @@ const ShopList = () => {
 
   return (
     <div className="l-shop-list-wrapper">
+      {/* <div>
+        Cart:
+        <pre>{JSON.parse(context.cart)}</pre>
+      </div> */}
       <h3 className="mb-5">Shop</h3>
       <div className="l-shop-list">
         {context &&
           context.products.map(product => (
-            <AddProduct key={product.id} {...product} />
+            <AddProduct key={product.id} product={product} />
           ))}
       </div>
       {showLoader && <MySpinner />}

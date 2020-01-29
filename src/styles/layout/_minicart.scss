@@ -1,0 +1,50 @@
+.dropdown-menu {
+  left: auto;
+  right: 0;
+}
+.l-minicart {
+  width: 400px;
+
+  .l-minicart-item {
+    position: relative;
+    padding: 5px 10px;
+    display: flex;
+    border-bottom: 1px solid #ddd;
+
+    .l-img {
+      width: 100px;
+      margin-right: 20px;
+      img {
+        height: 90px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+    .l-content {
+      h4 {
+      }
+      span {
+      }
+    }
+    .l-action {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
+}
+
+// modules:
+.empty-cart {
+  padding: 10px;
+  margin-bottom: 0;
+  font-size: 1.7rem;
+}
+
+.minicart-total {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 2rem;
+}

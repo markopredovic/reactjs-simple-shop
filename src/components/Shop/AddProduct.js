@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../context/appContext";
+import { useEffect } from "react";
 
-const AddProduct = ({ id, db_node_name, name, productImageUrl, price }) => {
-  const handleAddToCart = () => {};
+const AddProduct = ({ product }) => {
+  const context = useContext(AppContext);
+
+  const handleAddToCart = () => {
+    product.qty = 1;
+    context.addToCart(product);
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <div className="l-add-product">
       <div className="m-add-product text-center">
         <div className="l-img">
-          {productImageUrl ? (
-            <img src={productImageUrl} alt="" />
+          {product && product.productImageUrl ? (
+            <img src={product.productImageUrl} alt="" />
           ) : (
             <img
               src={`https://placehold.it/150x200/?text=${encodeURIComponent(
@@ -19,8 +28,9 @@ const AddProduct = ({ id, db_node_name, name, productImageUrl, price }) => {
           )}
         </div>
         <div className="l-content">
-          <div className="l-name h5">{name}</div>
-          <div className="l-price text-info h4">{`${price}$`}</div>
+          <div className="l-name h5">{product && product.name}</div>
+          <div className="l-price text-info h4">{`${product &&
+            product.price}$`}</div>
         </div>
         <div className="l-action">
           <button onClick={handleAddToCart} className="btn btn-primary btn-lg">
