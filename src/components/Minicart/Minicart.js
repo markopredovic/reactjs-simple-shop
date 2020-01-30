@@ -10,8 +10,6 @@ const Minicart = () => {
 
   useEffect(() => {
     context.getCart();
-    console.log("minicart use effect");
-    console.log("CART", context.cart);
   }, []);
 
   return (

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
 import Minicart from "../Minicart";
-import { FaCaretDown, FaCartPlus } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa";
+import AppContext from "../../context/appContext";
 
 const Header = () => {
+  const context = useContext(AppContext);
+  const qty = context.cart.length;
+
   return (
     <header className="">
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -35,8 +39,8 @@ const Header = () => {
               <Dropdown>
                 <Dropdown.Toggle variant="info" id="dropdown-basic">
                   <FaCartPlus />
+                  {qty > 0 && <span className="minicart-qty">{qty}</span>}
                 </Dropdown.Toggle>
-
                 <Dropdown.Menu>
                   <Minicart />
                 </Dropdown.Menu>

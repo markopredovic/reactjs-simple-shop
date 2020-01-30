@@ -12,10 +12,8 @@ ReactDOM.render(<App />, document.getElementById("root"));
 serviceWorker.unregister();
 
 // TODO:
-// show shop with all products
-// show product
-// add to cart
-// show cart
+// add to cart loader and modal message
+// minicart qty on minicart dropdown
 // checkout
 // enter shipping info
 // enter billing info
