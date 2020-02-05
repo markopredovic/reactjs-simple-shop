@@ -5,6 +5,7 @@ import CategoryPage from "./components/Category/CategoryPage";
 import Layout from "./components/UI/Layout";
 import Homepage from "./components/Homepage";
 import ProductPage from "./components/Product/ProductPage";
+import CheckoutPage from "./components/Checkout/CheckoutPage";
 import AppContext from "./context/appContext";
 import useShop from "./hooks/useShop";
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" exact component={Homepage} />
             <Route path="/dashboard/categories" component={CategoryPage} />
             <Route path="/dashboard/products" component={ProductPage} />
+            <Route path="/checkout" component={CheckoutPage} />
           </Switch>
         </Layout>
       </Router>

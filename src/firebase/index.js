@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-import config from "dotenv";
 import "firebase/storage";
 
 // Your web app's Firebase configuration

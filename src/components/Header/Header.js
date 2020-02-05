@@ -28,7 +28,7 @@ const Header = () => {
               <Nav.Link href="/">Home</Nav.Link>
             </Nav>
             <Nav>
-              <NavDropdown title="Dashboard" id="basic-nav-dropdown">
+              <NavDropdown title="Dashboard" className="mr-3">
                 <NavDropdown.Item as="li">
                   <NavLink to="/dashboard/categories">Categories</NavLink>
                 </NavDropdown.Item>

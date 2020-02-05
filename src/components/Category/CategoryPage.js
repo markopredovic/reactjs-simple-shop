@@ -7,6 +7,7 @@ import EditCategoryForm from "./EditCategoryForm";
 import Alert from "react-bootstrap/Alert";
 import ModalMessage from "../UI/ModalMessage";
 import CategoryRemoveMessage from "../Messages/CategoryRemoveMessage";
+import PageTitle from "../Title/PageTitle";
 
 const CategoryPage = () => {
   const {
@@ -45,8 +46,9 @@ const CategoryPage = () => {
             update
           }}
         >
+          <PageTitle title="Category" />
           {showCategoryRemovedMessage && (
-            <Alert variant="danger" onClose={() => {}} dismissible>
+            <Alert variant="danger" onClose={() => {}}>
               <CategoryRemoveMessage success={true} />
             </Alert>
           )}

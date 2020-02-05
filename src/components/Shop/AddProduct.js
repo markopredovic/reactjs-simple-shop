@@ -49,7 +49,7 @@ const AddProduct = ({ product }) => {
           </div>
         </div>
       </div>
-      <Modal show={showMessageModal} onHide={handleClose} animation={false}>
+      <Modal show={showMessageModal} onHide={handleClose}>
         <Modal.Header closeButton className="bg-success">
           <Modal.Title className="text-white">Add to cart</Modal.Title>
         </Modal.Header>

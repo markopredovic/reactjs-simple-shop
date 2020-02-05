@@ -5,6 +5,7 @@ import useProduct from "../../hooks/useProduct";
 import AddProductForm from "./AddProductForm";
 import EditProductForm from "./EditProductForm";
 import Alert from "react-bootstrap/Alert";
+import PageTitle from "../Title/PageTitle";
 
 const ProductPage = () => {
   const {
@@ -38,6 +39,7 @@ const ProductPage = () => {
         handleEditProduct
       }}
     >
+      <PageTitle title="Products" />
       {showProductRemovedMessage && (
         <Alert variant="danger">Product is removed!</Alert>
       )}

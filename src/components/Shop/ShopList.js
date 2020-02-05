@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AppContext from "../../context/appContext";
 import AddProduct from "./AddProduct";
 import MySpinner from "../UI/Layout/MySpinner";
+import PageTitle from "../Title/PageTitle";
 
 const ShopList = () => {
   const context = useContext(AppContext);
@@ -19,11 +20,7 @@ const ShopList = () => {
 
   return (
     <div className="l-shop-list-wrapper">
-      {/* <div>
-        Cart:
-        <pre>{JSON.parse(context.cart)}</pre>
-      </div> */}
-      <h3 className="mb-5">Shop</h3>
+      <PageTitle title="Shop" />
       <div className="l-shop-list">
         {context &&
           context.products.map(product => (

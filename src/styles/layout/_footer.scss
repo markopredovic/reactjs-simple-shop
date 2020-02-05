@@ -1,0 +1,16 @@
+// footer:
+footer {
+  padding: 20px 0;
+  color: #fff;
+  background-color: #000;
+}
+
+// modules:
+.m-copyright {
+  a {
+    color: rgba(255, 255, 255, 0.5);
+    &:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+}
